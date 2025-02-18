@@ -2,40 +2,84 @@ package queue;
 
 public class QueueImpl implements Queue {
 
+	private Node front, rear;
+	private int size, capacity;
+
+	private class Node {
+		String data;
+		Node next;
+
+		Node(String data) {
+			this.data = data;
+			this.next = null;
+		}
+	}
+
+	public QueueImpl(int capacity) {
+		this.capacity = capacity;
+		this.size = 0;
+		this.front = this.rear = null;
+	}
+
 	@Override
 	public boolean isFull() {
-		// TODO Auto-generated method stub
-		return false;
+		return size == capacity;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return size == 0;
 	}
 
 	@Override
 	public void enQueue(String element) {
-		// TODO Auto-generated method stub
-		
+		if (isFull()) {
+			System.out.println("Queue is full, cannot enqueue: " + element);
+			return;
+		}
+		Node newNode = new Node(element);
+		if (rear == null) {
+			front = rear = newNode;
+		} else {
+			rear.next = newNode;
+			rear = newNode;
+		}
+		size++;
+		System.out.println("Enqueued: " + element);
 	}
 
 	@Override
 	public String deQueue() {
-		// TODO Auto-generated method stub
-		return null;
+		if (isEmpty()) {
+			System.out.println("Queue is empty, cannot dequeue.");
+			return null;
+		}
+		String element = front.data;
+		front = front.next;
+		if (front == null) {
+			rear = null;
+		}
+		size--;
+		System.out.println("Dequeued: " + element);
+		return element;
 	}
 
 	@Override
 	public void display() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Queue elements:");
+		Node current = front;
+		while (current != null) {
+			System.out.println(current.data);
+			current = current.next;
+		}
 	}
 
 	@Override
 	public String peek() {
-		// TODO Auto-generated method stub
-		return null;
+		if (isEmpty()) {
+			System.out.println("Queue is empty, nothing to peek.");
+			return null;
+		}
+		return front.data;
 	}
-
 }
