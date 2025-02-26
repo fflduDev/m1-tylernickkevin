@@ -1,16 +1,49 @@
 package stack;
 
 public class StackTester {
+    public static void main(String[] args) {
+        StackImpl stackTester = new StackImpl();
 
-	public static void main(String[] args) {
+        System.out.println("Testing stack implementation...");
 
-		Stack stackTester = new StackImpl();
-		stackTester.push("thing in stack");
+        // Push elements
+        stackTester.push("Alice");
+        stackTester.push("Bob");
+        stackTester.push("Charlie");
 
-	}
-	
-	public static void runTests(Stack stack) {
-	 	
-	}
+        // Display stack
+        stackTester.display();
 
+        // Peek at the top element
+        System.out.println("Top element: " + stackTester.peek());
+
+        // Pop elements
+        System.out.println("Popped: " + stackTester.pop());
+        System.out.println("Popped: " + stackTester.pop());
+
+        // Display stack after popping
+        stackTester.display();
+
+        // Check if the stack is empty
+        System.out.println("Is stack empty? " + stackTester.isEmpty());
+
+        // Add more elements to check stack capacity
+        for (int i = 1; i <= 10; i++) {
+            stackTester.push("Rider" + i);
+        }
+
+        // Try to push when full
+        stackTester.push("Overflow Rider");
+
+        // Display final stack
+        stackTester.display();
+
+        // Empty the stack completely
+        while (!stackTester.isEmpty()) {
+            System.out.println("Removing: " + stackTester.pop());
+        }
+
+        // Final check
+        System.out.println("Is stack empty? " + stackTester.isEmpty());
+    }
 }
